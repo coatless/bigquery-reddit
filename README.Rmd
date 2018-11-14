@@ -1,0 +1,85 @@
+---
+title: 'Overview of Reddit Users Using Phrase'
+author: "JJB"
+date: "11/14/2018"
+output: md_document
+---
+
+# Obtain Data
+
+Run on [Google BigQuery](https://console.cloud.google.com/bigquery).
+
+```sql
+SELECT author, body
+FROM `fh-bigquery.reddit_comments.20*`
+WHERE subreddit = 'UIUC'
+AND REGEXP_CONTAINS(body, r'(?i)ask your advisor')
+```
+
+Save data as a CSV. The data used for this analysis can be found in the [`data/`](data/) folder.
+
+# Post processing
+
+Once we have the data, let's bring it into _R_.
+
+```{r}
+# Load in the Data
+comments = read.csv("data/results-20181114-075107.csv")
+```
+
+## User Overview
+
+Let's quickly take a peak at the different contributors using this phrase.
+
+```{r}
+# Figure out user counts
+count_users = table(comments$author)
+
+# Number of Unique Users
+n_users_unique = length(count_users)
+
+# Obtain a leaderboard of comments.
+top_users = sort(count_users, decreasing = TRUE)
+
+# Get name
+top_username = names(top_users)[1]
+top_user_posts =  top_users[1]
+
+```
+
+```{r echo = FALSE}
+format_reddit_username = function(user) {
+  paste0("[/u/", user,"](https://reddit.com/u/", user, ")")
+}
+```
+
+
+There were **`r n_users_unique`** of users who used a variation of the phrase
+"Ask your advisor". The user with the highest amount of comments was 
+**`r format_reddit_username(top_username)`** who had **`r top_user_posts`**.
+
+All users with at least 4 posts containing the phrase are listed next in a
+descending order.
+
+```{r, echo = FALSE}
+cream_of_crop = as.data.frame(top_users[top_users >= 4])
+names(cream_of_crop) = c("Username", "Frequency")
+# Generate knitr table
+knitr::kable(cream_of_crop)
+```
+
+## Amount of Words Used Per Post
+
+```{r message=FALSE}
+# Figure out user counts
+library("dplyr")
+
+comments %>%
+  group_by(author) %>%
+  summarise(mean_nwords = mean(stringr::str_count(body, "\\S+")),
+            n_entries = n()) %>%
+  arrange(desc(n_entries), desc(mean_nwords)) %>%
+  filter(n_entries >= 4) %>%
+  knitr::kable()
+```
+

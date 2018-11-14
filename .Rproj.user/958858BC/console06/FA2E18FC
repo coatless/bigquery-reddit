@@ -1,0 +1,14 @@
+
+[Kwirelessprv-10-193-49-106:bigquery-reddit ronin$ git push origin master
+Counting objects: 12, done.
+Delta compression using up to 8 threads.
+Compressing objects:  12% (1/8)   Compressing objects:  25% (2/8)   Compressing objects:  37% (3/8)   Compressing objects:  50% (4/8)   Compressing objects:  62% (5/8)   Compressing objects:  75% (6/8)   Compressing objects:  87% (7/8)   Compressing objects: 100% (8/8)   Compressing objects: 100% (8/8), done.
+Writing objects:   8% (1/12)   Writing objects:  16% (2/12)   Writing objects:  25% (3/12)   Writing objects:  33% (4/12)   Writing objects:  41% (5/12)   Writing objects:  50% (6/12)   Writing objects:  58% (7/12)   Writing objects:  66% (8/12)   Writing objects:  75% (9/12)   Writing objects:  83% (10/12)   Writing objects:  91% (11/12)   Writing objects: 100% (12/12)   Writing objects: 100% (12/12), 240.21 KiB | 7.75 MiB/s, done.
+Total 12 (delta 0), reused 0 (delta 0)
+remote: 
+remote: Create a pull request for 'master' on GitHub by visiting:[K
+remote:      https://github.com/coatless/bigquery-reddit/pull/new/master[K
+remote: 
+To https://github.com/coatless/bigquery-reddit.git
+ * [new branch]      master -> master
+]0;~/Google Drive/Courses/STAT385/bigquery-redditwirelessprv-10-193-49-106:bigquery-reddit ronin$ 
